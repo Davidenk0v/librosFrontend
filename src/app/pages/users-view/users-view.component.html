@@ -1,0 +1,29 @@
+<h2>Usuarios</h2>
+
+@if(errorMessage){
+    <app-error-message [inputMode]="errorMessage"/>
+}
+<div>
+    @if (user$ | async; as allUsers) {
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Nombre usuario</th>
+                <th>Email</th>
+                <th>Acciones</th>
+            </tr>
+            @for (user of allUsers; track user.id) {
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.fistName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.username}}</td>
+                <td>{{user.email}}</td>
+                <td><button class="btn btn-red mr-2">Eliminar</button><button class="btn btn-red">Editar</button></td>
+            </tr>
+        }
+        </table>
+    }
+</div>
