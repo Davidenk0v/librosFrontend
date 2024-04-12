@@ -5,6 +5,7 @@ import { BooksViewComponent } from './pages/books-view/books-view.component';
 import { UsersViewComponent } from './pages/users-view/users-view.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { authGuardGuard } from './guards/auth-guard.guard';
+import { BookDetailComponent } from './pages/book-detail/book-detail.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: '/inicio', pathMatch: 'full'},
@@ -12,5 +13,6 @@ export const routes: Routes = [
     {path: 'nuevo-usuario', component: RegisterComponent},
     {path: 'login', component: LoginComponent},
     {path: 'libros', component: BooksViewComponent, canActivate: [authGuardGuard]},
-    {path: 'usuarios', component: UsersViewComponent, canActivate: [authGuardGuard]}
+    {path: 'usuarios', component: UsersViewComponent, canActivate: [authGuardGuard]},
+    {path: 'libro/:id', component: BookDetailComponent, canActivate: [authGuardGuard]}
 ];

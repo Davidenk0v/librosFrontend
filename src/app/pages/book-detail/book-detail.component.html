@@ -1,0 +1,82 @@
+<!-- component -->
+<div class="flex items-center justify-center p-12">
+    <!-- Author: FormBold Team -->
+    <!-- Learn More: https://formbold.com -->
+    <div class="mx-auto w-full max-w-[550px]">
+      <form [formGroup]="updateForm" method="POST">
+        <div class="mb-5">
+          <label
+            for="title"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Título
+          </label>
+          <input
+          formControlName="title"
+          value="{{book?.title}}"
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Nuevo titulo"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="author"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Autor
+          </label>
+          <input
+          formControlName="author"
+          value="{{book?.author?.firstName}}"
+            type="text"
+            name="author"
+            id="author"
+            placeholder="example@domain.com"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="category"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Categoría
+          </label>
+          <input
+          formControlName="category"
+          value="{{book?.category?.name}}"
+            type="text"
+            name="category"
+            id="category"
+            placeholder="Enter your subject"
+            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div class="mb-5">
+          <label
+            for="message"
+            class="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            URL Imagen
+          </label>
+          <textarea
+            rows="4"
+            name="message"
+            id="message"
+            placeholder="Introduce la URL de la imagen"
+            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          ></textarea>
+        </div>
+        <div>
+          <button
+            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

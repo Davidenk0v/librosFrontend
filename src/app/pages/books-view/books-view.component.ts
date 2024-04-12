@@ -29,18 +29,4 @@ export class BooksViewComponent implements OnInit{
           return EMPTY;
         }));
     }
-
-    bookInfo(id:number){
-      this.bookService.getBookById(id).subscribe({
-        next: (bookData) => {
-          this.book = bookData;
-        },
-        error: (errorData) => {
-          this.errorMessage=errorData;
-        },
-        complete: ()=> {
-          console.info("Book data ok");
-        }
-      });
-    }
 }
