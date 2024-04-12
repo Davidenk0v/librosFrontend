@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../../services/login.service';
+import { LoginService } from '../../services/auth/login.service';
 import { LoginRequest } from '../../interfaces/loginRequets';
 
 @Component({
@@ -29,16 +29,15 @@ export class LoginComponent {
    }
 
   login(){
-    if(this.loginForm.valid){;
+    if(this.loginForm.valid){
       this.loginService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (userData) => {
-          console.log(userData.body)
+
         },
         error: (errorData)=>{
           this.errorMessage=errorData;
         },
         complete: ()=>{
-          console.log('Login completo')
           this.router.navigateByUrl('/inicio');
           this.loginForm.reset();
         }

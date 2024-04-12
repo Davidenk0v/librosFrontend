@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { BooksService } from '../../services/books/books.service';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { Book } from '../../interfaces/book';
-import { BookCardComponent } from '../../nav/book-card/book-card.component';
-import { ErrorMessageComponent } from '../../nav/error-message/error-message.component';
+import { BookCardComponent } from '../../components/book-card/book-card.component';
+import { ErrorMessageComponent } from '../../components/error-message/error-message.component';
 
 @Component({
   selector: 'app-books-view',
@@ -17,15 +17,30 @@ export class BooksViewComponent implements OnInit{
 
   public books$!: Observable<Book[]>;
   public errorMessage!: string;
+  public book?: Book;
   
-  constructor(private service: BooksService){
+  constructor(private bookService: BooksService){
 
   }
 
     ngOnInit(): void {
-        this.books$ = this.service.getAllBooks().pipe(catchError((error:string)=>{
+        this.books$ = this.bookService.getAllBooks().pipe(catchError((error:string)=>{
           this.errorMessage = error;
           return EMPTY;
         }));
+    }
+
+    bookInfo(id:number){
+      this.bookService.getBookById(id).subscribe({
+        next: (bookData) => {
+          this.book = bookData;
+        },
+        error: (errorData) => {
+          this.errorMessage=errorData;
+        },
+        complete: ()=> {
+          console.info("Book data ok");
+        }
+      });
     }
 }

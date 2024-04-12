@@ -1,0 +1,38 @@
+<!-- component -->
+<div class="bg-white">
+    <div class="border py-3 px-6">
+      <div class="flex justify-between">
+        <div class="flex items-center">
+          <span class="ml-2 font-semibold text-[#252C32]">Tarea 2.7 de Angular</span>
+        </div>
+  
+        <div class="ml-2 flex">
+            @if(!userLoginOn){
+              <div class="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                  <a href="/nuevo-usuario" class="text-sm font-medium">Registrarte</a>
+                </div>
+                
+                <div class="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                    <a href="/login" class="text-sm font-medium">iniciar sesión</a>
+                </div>
+            }@else {
+                <div class="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border border-red-200 py-2 px-4 hover:bg-red-100">
+                    <span (click)="logout()" class="text-sm font-medium">Cerrar sesión</span>
+                </div>
+            }
+
+            </div>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+            <div class="ml-2 flex cursor-pointer items-center gap-x-1 rounded-md border py-2 px-4 hover:bg-gray-100">
+                <a href="/inicio" class="text-sm font-medium">Inicio</a>
+            </div>          
+            <div class="flex gap-x-8">
+            @if(userLoginOn){
+                <a href="/libros" class="cursor-pointer py-1 px-2 text-sm font-medium hover:bg-gray-100 rounded-md border">Libros</a>
+                <a href="/usuarios" class="cursor-pointer rounded-md border py-1 px-2 text-sm font-medium hover:bg-gray-100">Usuarios</a>
+            }
+            </div>
+      </div>
+    </div>
+  </div>
