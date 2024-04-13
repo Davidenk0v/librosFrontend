@@ -2,6 +2,10 @@ import { Component, Input } from '@angular/core';
 import { BooksService } from '../../services/books/books.service';
 import { Book } from '../../interfaces/book';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UpdateService } from '../../services/books/update.service';
+import { UpdateBookRequest } from '../../interfaces/updateBookRequest';
+import { routes } from '../../app.routes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-detail',
@@ -13,15 +17,18 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 export class BookDetailComponent {
 
   @Input() id:string = '';
-  book?:Book;
+
+  title?:string;
+  urlImg?:string;
+
+  succesMessage:string = '';
   errorMessage?:string;
 
-  constructor(private bookService:BooksService, private formBuilder:FormBuilder){}
+  constructor(private router:Router, private bookService:BooksService, private formBuilder:FormBuilder, private updateService:UpdateService){}
 
     updateForm = this.formBuilder.group({
-      title: [this.book?.title],
-      author: [this.book?.author],
-      category: [this.book?.category]
+      title: [this.title],
+      urlImg: [this.urlImg]
     })
 
 
@@ -29,15 +36,31 @@ export class BookDetailComponent {
       if(this.id){
         this.bookService.getBookById(parseInt(this.id)).subscribe({
           next: (bookData) => {
-            this.book = bookData;
+            this.title = bookData.title;
+            this.urlImg = bookData.urlImg;
           },
           error: (errorData) => {
             this.errorMessage=errorData;
           },
           complete: ()=> {
-            console.info(this.book);
+            console.info("Libro cargado correctamente");
           }
         });
       }
+    }
+
+    updateBook(){
+      
+      this.updateService.updateBook(parseInt(this.id), this.updateForm.value as UpdateBookRequest).subscribe({
+        next: (response) => {
+            console.log(response);
+        },
+        error: (errorData) => {
+          console.error(errorData)
+        },
+        complete: ()=> {
+          this.succesMessage = "Libro actualizado correctamente"
+        }
+      });
     }
 }

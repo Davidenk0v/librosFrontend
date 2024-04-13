@@ -6,4 +6,5 @@ export interface Book {
     title: string;
     author: Author;
     category: Category;
+    urlImg:string
 }

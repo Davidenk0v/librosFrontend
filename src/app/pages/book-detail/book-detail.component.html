@@ -1,4 +1,23 @@
-<!-- component -->
+@if(succesMessage != ''){
+  <div class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-green-700 bg-green-100 border border-green-300 ">
+    <div slot="avatar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle w-5 h-5 mx-2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+    </div>
+    <div class="text-xl font-normal  max-w-full flex-initial">
+        {{succesMessage}}</div>
+    <div class="flex flex-auto flex-row-reverse">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x cursor-pointer hover:text-green-400 rounded-full w-5 h-5 ml-2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </div>
+    </div>
+</div>
+}
 <div class="flex items-center justify-center p-12">
     <!-- Author: FormBold Team -->
     <!-- Learn More: https://formbold.com -->
@@ -13,45 +32,11 @@
           </label>
           <input
           formControlName="title"
-          value="{{book?.title}}"
+          [(ngModel)]="title"
             type="text"
             name="title"
             id="title"
             placeholder="Nuevo titulo"
-            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          />
-        </div>
-        <div class="mb-5">
-          <label
-            for="author"
-            class="mb-3 block text-base font-medium text-[#07074D]"
-          >
-            Autor
-          </label>
-          <input
-          formControlName="author"
-          value="{{book?.author?.firstName}}"
-            type="text"
-            name="author"
-            id="author"
-            placeholder="example@domain.com"
-            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          />
-        </div>
-        <div class="mb-5">
-          <label
-            for="category"
-            class="mb-3 block text-base font-medium text-[#07074D]"
-          >
-            Categoría
-          </label>
-          <input
-          formControlName="category"
-          value="{{book?.category?.name}}"
-            type="text"
-            name="category"
-            id="category"
-            placeholder="Enter your subject"
             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           />
         </div>
@@ -62,19 +47,22 @@
           >
             URL Imagen
           </label>
-          <textarea
-            rows="4"
-            name="message"
-            id="message"
+          <input
+          formControlName="urlImg"
+          [(ngModel)]="urlImg"
+            type="text"
+            name="urlImg"
+            id="urlImg"
             placeholder="Introduce la URL de la imagen"
             class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-          ></textarea>
+          />
         </div>
         <div>
           <button
+          (click)="updateBook()"
             class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
           >
-            Submit
+            Actualizar
           </button>
         </div>
       </form>

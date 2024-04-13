@@ -29,13 +29,13 @@ export class RegisterComponent {
     if(this.registerForm.valid){
       this.registerService.register(this.registerForm.value as RegisterRequest).subscribe({
         next: (userData) => {
-          this.router.navigateByUrl('/inicio');
         },
         error: (errorData)=>{
           this.errorMessage=errorData;
         },
         complete: ()=>{
           this.registerForm.reset();
+          this.router.navigateByUrl('/inicio');
         }
       });
 
