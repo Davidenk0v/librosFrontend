@@ -5,25 +5,40 @@ import { User } from '../../interfaces/user';
 import { evironment } from '../../../environment/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UsersService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${evironment.urlApi}/users/`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
 
-  getAllUsers(): Observable<User[]>{
-    return this.http.get<User[]>(`${evironment.urlApi}/users/`)
-              .pipe(catchError((error: HttpErrorResponse)=> {
-                let errorMessage = "";
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
 
-                if(error.error instanceof ErrorEvent){
-                  errorMessage = `Error: ${error.error.message}`;
-                }else{
-                  errorMessage = `Error code: ${error.status}, message: ${error.message}`;
-                }
-
-              return throwError(()=> errorMessage);
-              }))
+        return throwError(() => errorMessage);
+      })
+    );
   }
 
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete<any>(`${evironment.urlApi}/users/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+
+        if (error.error instanceof ErrorEvent) {
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          errorMessage = `Error code: ${error.status}, message: ${error.message}`;
+        }
+
+        return throwError(() => errorMessage);
+      })
+    );
+  }
 }

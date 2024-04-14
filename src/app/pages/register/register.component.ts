@@ -10,37 +10,40 @@ import { RegisterRequest } from '../../interfaces/registerRequest';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private registerService: RegisterService
+  ) {}
+  errorMessage: string = '';
 
-  constructor(private formBuilder:FormBuilder, private router:Router, private registerService:RegisterService){}
-  errorMessage:string = '';
+  registerForm = this.formBuilder.group({
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    username: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
+  });
 
-  registerForm= this.formBuilder.group({
-    firstName:['',[Validators.required]],
-    lastName:['',[Validators.required]],
-    username:['',[Validators.required]],
-    email:['',[Validators.required,Validators.email]],
-    password:['', [Validators.required]]
-  })
-
-  register(){
-    if(this.registerForm.valid){
-      this.registerService.register(this.registerForm.value as RegisterRequest).subscribe({
-        next: (userData) => {
-        },
-        error: (errorData)=>{
-          this.errorMessage=errorData;
-        },
-        complete: ()=>{
-          this.registerForm.reset();
-          this.router.navigateByUrl('/inicio');
-        }
-      });
-
-    }else{
+  register() {
+    if (this.registerForm.valid) {
+      this.registerService
+        .register(this.registerForm.value as RegisterRequest)
+        .subscribe({
+          next: (userData) => {},
+          error: (errorData) => {
+            this.errorMessage = errorData;
+          },
+          complete: () => {
+            this.router.navigateByUrl('/inicio');
+            this.registerForm.reset();
+          },
+        });
+    } else {
       this.registerForm.markAllAsTouched();
     }
-      }
-    }
+  }
+}
